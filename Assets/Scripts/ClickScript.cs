@@ -10,15 +10,22 @@ public class ClickScript : MonoBehaviour
     public TextMeshProUGUI clickTextTemp;
     private int clickCount = 0;
     private int temperature = 90;
-    public float delay = 2;
+    private float temperatureFloat;
+    public float tempDropIncrement = 0.2f;
+    public float timeUntilTempIncrease = 1;
+    public float delay = 0.1f;
     private float timeElapsedTemp;
-    private float timeElapsed = Time.deltaTime;
+    private float timeElapsed;
     public Color orangecolor;
+    private bool justClicked;
+   
 
     /* ideas: After a certain amount of clicks the gun breaks so the user must keep pressing a "fix button" then the gun will work again after a certain amount of clicks to the fix button 
     */
     void Start()
     {
+        temperatureFloat = temperature;
+        timeElapsedTemp = delay;
         
     }
 
@@ -27,24 +34,29 @@ public class ClickScript : MonoBehaviour
     {
         clickText.text = "Clicks: " + clickCount; // Updates the number of clicks on screen
         clickTextTemp.text = "Temperature: " + temperature+ "F"; // Updates the temperature on screen
+        timeElapsed += Time.deltaTime;
 
         TempColor();
-        TemperatureChangeDelay();
-        //TemperatureIncrease();
-
+        //TemperatureChangeDelay();
+        TemperatureIncrease();
+        ClickDelay();
 
         if (Input.GetMouseButtonDown(0)) // Press  the left mouse button anywhere on the screen and the click counter will go up
         {
             Click();
+            temperatureFloat -= tempDropIncrement;
+            temperature = (int)temperatureFloat;
+            timeElapsedTemp = 0;
             //temperature--;
         }
     }
 
     public void TemperatureIncrease()
     {
-        if (timeElapsed >= 5)
+        if (timeElapsed >= timeUntilTempIncrease && !justClicked)
         {
             temperature++;
+            timeElapsed = 0;
         }
     }
     public void TemperatureChangeDelay()
@@ -59,6 +71,21 @@ public class ClickScript : MonoBehaviour
             timeElapsedTemp = 0;
         }
     }
+    public void ClickDelay()
+    {
+        if (timeElapsedTemp < delay)
+        {
+            timeElapsedTemp += Time.deltaTime;
+            justClicked = true;
+        }
+        else  
+        {
+            justClicked = false;
+            //timeElapsedTemp = 0;
+        }
+    }
+
+
 
     public void Click()
     {
@@ -73,7 +100,7 @@ public class ClickScript : MonoBehaviour
         }
         else if (temperature >= 61 && temperature < 81)
         {
-           clickTextTemp.color = orangecolor; //change to orange
+           clickTextTemp.color = orangecolor; 
         }
         else
         {

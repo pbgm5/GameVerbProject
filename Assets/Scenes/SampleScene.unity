@@ -584,7 +584,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickText: {fileID: 235882371}
   clickTextTemp: {fileID: 274890273}
-  delay: 3
+  tempDropIncrement: 0.2
+  timeUntilTempIncrease: 3
+  delay: 0.2
   orangecolor: {r: 0.9716981, g: 0.49537554, b: 0, a: 1}
 --- !u!114 &360016865
 MonoBehaviour:
