@@ -57,9 +57,9 @@ public class ClickScript : MonoBehaviour
         TemperatureIncrease();
         ClickDelay();
         float angle = Util.RemapRange(temperatureFloat, 100, 50, -90, -30);
-        float eyepos = Util.RemapRange(temperatureFloat, 100, 50, 3, 4); //should be 3.5 and 3.7 not 3 and 4
-        float nosepos = Util.RemapRange(temperatureFloat, 100, 50, -90, -30);  //3.589 to 3.482
-        float btmouthpos = Util.RemapRange(temperatureFloat, 100, 50, -90, -30); //3.468 to 3.403
+        float eyepos = Util.RemapRange(temperatureFloat, 100, 50, 3.5f, 3.7f); //should be 3.5 and 3.7 not 3 and 4
+        float nosepos = Util.RemapRange(temperatureFloat, 100, 50, 3.482f, 3.589f);  //3.589 to 3.482
+        float btmouthpos = Util.RemapRange(temperatureFloat, 100, 50, 3.403f, 3.468f); //3.468 to 3.403
         if (Input.GetMouseButtonDown(0)) // Press  the left mouse button anywhere on the screen and the click counter will go up
         {
             Click();
@@ -70,7 +70,7 @@ public class ClickScript : MonoBehaviour
             //temperature--;
         }
         armPivot1.localEulerAngles = new Vector3(angle, armPivot1.localEulerAngles.y, armPivot1.localEulerAngles.z);
-        armPivot2.localEulerAngles = new Vector3(angle, armPivot2.localEulerAngles.y, armPivot2.localEulerAngles.z);
+        armPivot2.localEulerAngles = new Vector3(-angle, armPivot2.localEulerAngles.y, armPivot2.localEulerAngles.z);
         //armPivot.localRotation = Quaternion.Euler(armRot);
         lefteyebutton.localPosition = new Vector3(lefteyebutton.localPosition.x, eyepos, lefteyebutton.localPosition.z);
         righteyebutton.localPosition = new Vector3(righteyebutton.localPosition.x, eyepos, righteyebutton.localPosition.z);
